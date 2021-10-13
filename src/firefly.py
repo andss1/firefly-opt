@@ -9,12 +9,13 @@ def firefly(d, n, gamma, alpha, beta, maxGeneration):
     :param d: number of pipelines (weights)
     :param n: number of agents
     :param gamma: absorption coefficient
-    :param alpha: step of motion
+    :param alpha: random
     :param beta: attraction factor
     :param maxGeneration: number of max generation
     :return: best firefly
     """
     t = 0
+    alpha_t = 1.0
     random.seed(0)
     lin = [0.0]*n
 
@@ -58,6 +59,19 @@ def firefly(d, n, gamma, alpha, beta, maxGeneration):
             for j in range(n):
                 ff_dis = dist(fireflies[i], fireflies[j])
 
+        alpha_t = alpha * alpha_t
+
+        for i in range(n):
+            for j in range(n):
+                if z[i] < z[j]:
+                    ff = create_firefly(d)
+
+                    beta_t = beta*math.exp(-gamma*(ff_dis[i][j]**2))
+
+                    if i != n-1:
+                        for k in range(d):
+                            fireflies[i][k] = int(((1 - beta_t) * fireflies[i][k] + beta_t * fireflies[j][k] + alpha_t*ff[k]) / (1 + alpha_t))
+
         bests = fireflies[0]
         t += 1
 
@@ -74,7 +88,7 @@ def create_firefly(n):
     ff = [round(i, dec) for i in ff]
     return ff
 
-def dist(a, b):
+def dist(a,b):
     d = 0
     for k in range(len(a)):
         d += (a[k] - b[k]) ** 2
