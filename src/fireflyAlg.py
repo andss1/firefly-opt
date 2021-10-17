@@ -6,6 +6,7 @@ from src.iou_metric import iou_result
 
 DECIMAL = 1
 
+
 def firefly(d, n, gamma, alpha, beta, maxGeneration):
     """
     :param d: number of pipelines (weights)
@@ -38,7 +39,7 @@ def firefly(d, n, gamma, alpha, beta, maxGeneration):
     while t < maxGeneration:
         for i in range(n):
             #Metric results
-            z[i] = -iou_result(fireflies[i])
+            z[i] = -iou_result(fireflies[i], d)
 
         # Index by results
         indice = np.argsort(z)
