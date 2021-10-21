@@ -8,5 +8,16 @@ path_2 = './data/pipeline1/predict_0.png'
 path_3 = './data/gold/img_0.png'
 
 #print(iou_coef(read_img(path_1), read_img(path_3)))
-print(iou_result())
+#print(iou_result())
+#print(read_img(path_3))
+#print('===========')
+'''
+t = []
 
+t.append(read_img(path_3))
+t.append(read_img(path_3))'''
+
+result_image(read_img(path_3), read_img(path_3))
+#print(result_image(read_img(path_3), read_img(path_2)))
+
+#print(weighted_image(read_img(path_3), 0.7))
