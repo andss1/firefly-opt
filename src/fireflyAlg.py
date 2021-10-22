@@ -1,10 +1,9 @@
 import random
 import math
-import numpy as np
 
-from src.iou_metric import iou_result
+from src.iou_metric import *
 
-DECIMAL = 1
+DECIMAL = 2
 
 
 def firefly(d, n, gamma, alpha, beta, maxGeneration):
@@ -39,7 +38,7 @@ def firefly(d, n, gamma, alpha, beta, maxGeneration):
     while t < maxGeneration:
         for i in range(n):
             #Metric results
-            z[i] = -iou_result(fireflies[i], d)
+            z[i] = -iou_result(fireflies[i])
 
         # Index by results
         indice = np.argsort(z)
@@ -72,7 +71,9 @@ def firefly(d, n, gamma, alpha, beta, maxGeneration):
                                             1 + alpha_t), DECIMAL)
         bests = fireflies[0]
         t += 1
-        print(f'{t} - Solucao: {fireflies}')
+        print(f'{t} - Solucao de pesos: {fireflies}')
+        print(f'IoU: {z}')
+
     return bests
 
 
